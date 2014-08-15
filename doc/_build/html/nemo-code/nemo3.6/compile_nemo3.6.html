@@ -24,8 +24,9 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="NEMO_EASTCOAST 1.0.0 documentation" href="../../index.html" />
-    <link rel="up" title="&lt;no title&gt;" href="index.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="index.html" /> 
+    <link rel="up" title="Compiling NEMOv3.6" href="index.html" />
+    <link rel="next" title="Installing required libraries" href="scripts/index.html" />
+    <link rel="prev" title="Installing Required libraries" href="install_libs.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,10 +36,13 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="index.html" title="&lt;no title&gt;"
+          <a href="scripts/index.html" title="Installing required libraries"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="install_libs.html" title="Installing Required libraries"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">NEMO_EASTCOAST 1.0.0 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">&lt;no title&gt;</a> &raquo;</li> 
+          <li><a href="index.html" accesskey="U">Compiling NEMOv3.6</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -49,7 +53,6 @@
             
   <div class="section" id="compiling-nemov3-6">
 <h1>Compiling NEMOv3.6<a class="headerlink" href="#compiling-nemov3-6" title="Permalink to this headline">¶</a></h1>
-<p>This is a document on compiling NEMO 3.6. It also includes which versions of required libraries are appropriate for this task. Example scripts for compiling the libraries are also provided. These scripts are based on Mercator-ocean&#8217;s scripts for compiling NEMOv3.5.</p>
 <div class="section" id="getting-the-code">
 <h2>Getting the code<a class="headerlink" href="#getting-the-code" title="Permalink to this headline">¶</a></h2>
 <p>Download the latest version from the trunk repository:</p>
@@ -58,47 +61,8 @@
 </div>
 <p>Your username is the same as the one you use for <a class="reference external" href="http://www.nemo-ocean.eu/">http://www.nemo-ocean.eu/</a> website</p>
 </div>
-<div class="section" id="required-libraries">
-<h2>Required libraries<a class="headerlink" href="#required-libraries" title="Permalink to this headline">¶</a></h2>
-<p>To install NEMO v3.6, the following libraries are required:</p>
-<ul class="simple">
-<li>HDF5</li>
-<li>NETCDF4</li>
-<li>XIOS</li>
-</ul>
-<p>To compile NEMO3.6, XIOS IO server should be installed. XIOS need NETCDF4 and if you want to use the &#8220;one_file&#8221; mode which means having one overall output instead of outputs for each processor, you will need the hdf/netcdf libraries properly compiled to allow parallel IO.</p>
-</div>
-<div class="section" id="installing-required-libraries">
-<h2>Installing Required libraries<a class="headerlink" href="#installing-required-libraries" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="installing-hdf5">
-<h3>Installing HDF5<a class="headerlink" href="#installing-hdf5" title="Permalink to this headline">¶</a></h3>
-<p>Download the latest version of hdf5 from website:
-<a class="reference external" href="http://www.hdfgroup.org/HDF5/release/obtain5.html#obtain">http://www.hdfgroup.org/HDF5/release/obtain5.html#obtain</a></p>
-<p>I downloaded version 1.8.13. You can find the script for installing HDF5 here:</p>
-</div>
-<div class="section" id="installing-netcdf4">
-<h3>Installing NETCDF4<a class="headerlink" href="#installing-netcdf4" title="Permalink to this headline">¶</a></h3>
-<p>To compile XIOS library we need NECTD4 and not NETCDF3. To Install NETCDF4, first download and install the developer version of netcdf-c from github:</p>
-<p><a class="reference external" href="https://github.com/Unidata/netcdf-c">https://github.com/Unidata/netcdf-c</a></p>
-<p>As this version does not have a configuration file you first must make it by:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">autoreconf</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">f</span>
-</pre></div>
-</div>
-<p>The script for installing netcdf-c library can be found here:</p>
-<p>The next step is to install netcdf-fortran. Download the latest stable version and install the library. A sample script for this step can be found here:</p>
-<p>NOTE: Do not download the latest stable version of netcdf-c (4.3.2). If you do, you will encounter errors while compiling with enable-parallel option. This is due to a bug which has been fixed in the developers version.</p>
-</div>
-<div class="section" id="installing-xios">
-<h3>Installing XIOS<a class="headerlink" href="#installing-xios" title="Permalink to this headline">¶</a></h3>
-<p>Obtain the latest revision of XIOS:</p>
-<div class="highlight-python"><div class="highlight"><pre>svn co http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS/trunk XIOS
-</pre></div>
-</div>
-<p>Follow instructions given here to install: <a class="reference external" href="http://forge.ipsl.jussieu.fr/ioserver/wiki/documentation">http://forge.ipsl.jussieu.fr/ioserver/wiki/documentation</a></p>
-</div>
-</div>
-<div class="section" id="id1">
-<h2>Compiling NEMOv3.6<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="compiling-code">
+<h2>Compiling code<a class="headerlink" href="#compiling-code" title="Permalink to this headline">¶</a></h2>
 <p>To compile NEMOv3.6 you first need to create an architecture file compatible with your machine which also indicates the path to NETCDF4 and XIOS libraries. You can find example architecture files in NEMOGCM/ARCH folder.</p>
 <dl class="docutils">
 <dt>After creating the architecture file, compile and create executable using an existing configuration. For example to use GYRE configuration and create a configuration called MY_GYRE: ::</dt>
@@ -119,21 +83,17 @@
   <ul>
 <li><a class="reference internal" href="#">Compiling NEMOv3.6</a><ul>
 <li><a class="reference internal" href="#getting-the-code">Getting the code</a></li>
-<li><a class="reference internal" href="#required-libraries">Required libraries</a></li>
-<li><a class="reference internal" href="#installing-required-libraries">Installing Required libraries</a><ul>
-<li><a class="reference internal" href="#installing-hdf5">Installing HDF5</a></li>
-<li><a class="reference internal" href="#installing-netcdf4">Installing NETCDF4</a></li>
-<li><a class="reference internal" href="#installing-xios">Installing XIOS</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id1">Compiling NEMOv3.6</a></li>
+<li><a class="reference internal" href="#compiling-code">Compiling code</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">&lt;no title&gt;</a></p>
+  <p class="topless"><a href="install_libs.html"
+                        title="previous chapter">Installing Required libraries</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scripts/index.html"
+                        title="next chapter">Installing required libraries</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/nemo-code/nemo3.6/compile_nemo3.6.txt"
@@ -163,10 +123,13 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="index.html" title="&lt;no title&gt;"
+          <a href="scripts/index.html" title="Installing required libraries"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="install_libs.html" title="Installing Required libraries"
              >previous</a> |</li>
         <li><a href="../../index.html">NEMO_EASTCOAST 1.0.0 documentation</a> &raquo;</li>
-          <li><a href="index.html" >&lt;no title&gt;</a> &raquo;</li> 
+          <li><a href="index.html" >Compiling NEMOv3.6</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Compiling NEMOv3.6 &mdash; NEMO_EASTCOAST 1.0.0 documentation</title>
+    <title>Install HDF5 &mdash; NEMO_EASTCOAST 1.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="NEMO_EASTCOAST 1.0.0 documentation" href="../../index.html" />
-    <link rel="next" title="Installing Required libraries" href="install_libs.html" />
-    <link rel="prev" title="East Coast MEOPAR project documentation" href="../../index.html" /> 
+    <link rel="up" title="&lt;no title&gt;" href="index.html" />
+    <link rel="prev" title="Compiling NEMOv3.6" href="compile_nemo3.6.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,12 +35,10 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="install_libs.html" title="Installing Required libraries"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="../../index.html" title="East Coast MEOPAR project documentation"
+          <a href="compile_nemo3.6.html" title="Compiling NEMOv3.6"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">NEMO_EASTCOAST 1.0.0 documentation</a> &raquo;</li> 
+        <li><a href="../../index.html">NEMO_EASTCOAST 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">&lt;no title&gt;</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -49,15 +47,30 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="compiling-nemov3-6">
-<h1>Compiling NEMOv3.6<a class="headerlink" href="#compiling-nemov3-6" title="Permalink to this headline">¶</a></h1>
-<p>This is a document on compiling NEMO 3.6. It also includes which versions of required libraries are appropriate for this task. Example scripts for compiling the libraries are also provided. These scripts are based on Mercator-ocean&#8217;s scripts for compiling NEMOv3.5.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="install_libs.html">Installing Required libraries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="compile_nemo3.6.html">Compiling NEMOv3.6</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scripts/compile_hdf5.html">Installing HDF5</a></li>
-</ul>
+  <div class="section" id="install-hdf5">
+<h1>Install HDF5<a class="headerlink" href="#install-hdf5" title="Permalink to this headline">¶</a></h1>
+<p>This is a sample script for installing HDF5 using intel compilers.</p>
+<div class="highlight-python"><div class="highlight"><pre>#!/bin/bash
+
+export HDF5_Make_Ignore=yes
+export CC=mpicc
+export CXX=mpicxx
+export FC=mpif90
+
+# Configure
+
+./configure --prefix=/home/fateme/Opt/opt-install/HDF5/HDF5_ZLIB_MPICH \
+--enable-fortran  --enable-parallel --enable-hl --enable-shared  \
+2&gt;&amp;1 | tee fateme-configure_hdf5_zlib.log
+
+# Make and install
+
+make 2&gt;&amp;1 | tee fateme-make_hdf5_zlib.log
+
+make check  2&gt;&amp;1 | tee fateme-make_check_hdf5_zlib.log
+
+make install 2&gt;&amp;1 | tee fateme-install_hdf5_zlib.log
+</pre></div>
 </div>
 </div>
 
@@ -68,14 +81,11 @@
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../../index.html"
-                        title="previous chapter">East Coast MEOPAR project documentation</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="install_libs.html"
-                        title="next chapter">Installing Required libraries</a></p>
+  <p class="topless"><a href="compile_nemo3.6.html"
+                        title="previous chapter">Compiling NEMOv3.6</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../_sources/nemo-code/nemo3.6/index.txt"
+    <li><a href="../../_sources/nemo-code/nemo3.6/script_compile_hdf5.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -102,12 +112,10 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="install_libs.html" title="Installing Required libraries"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="../../index.html" title="East Coast MEOPAR project documentation"
+          <a href="compile_nemo3.6.html" title="Compiling NEMOv3.6"
              >previous</a> |</li>
-        <li><a href="../../index.html">NEMO_EASTCOAST 1.0.0 documentation</a> &raquo;</li> 
+        <li><a href="../../index.html">NEMO_EASTCOAST 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >&lt;no title&gt;</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
