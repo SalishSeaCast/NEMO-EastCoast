@@ -2,7 +2,7 @@
 
 *********************
 Installing NETCDF-C
-********************
+*********************
 
 This is a sample script for installing NETCDF4-C using intel compilers. ::
 
