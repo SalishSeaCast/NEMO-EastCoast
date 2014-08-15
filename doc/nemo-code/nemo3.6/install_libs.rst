@@ -20,29 +20,7 @@ Installing HDF5
 Download the latest version of hdf5 from website:
 http://www.hdfgroup.org/HDF5/release/obtain5.html#obtain
 
-I downloaded version 1.8.13. Here is a sample script for installing this library: ::
- 
- #!/bin/bash
-
- export HDF5_Make_Ignore=yes
- export CC=mpicc
- export CXX=mpicxx
- export FC=mpif90
-
- # Configure
-
- ./configure --prefix=/home/fateme/Opt/opt-install/HDF5/HDF5_ZLIB_MPICH \
- --enable-fortran  --enable-parallel --enable-hl --enable-shared  \
- 2>&1 | tee fateme-configure_hdf5_zlib.log
-
- # Make and install
-
- make 2>&1 | tee fateme-make_hdf5_zlib.log
-
- make check  2>&1 | tee fateme-make_check_hdf5_zlib.log
-
- make install 2>&1 | tee fateme-install_hdf5_zlib.log
-
+I downloaded version 1.8.13. A sample script for installing this library can be found in :ref:`Install_hdf5`
 
 Installing NETCDF4
 ------------------
@@ -55,10 +33,9 @@ As this version does not have a configuration file you first must make it by: ::
 
    autoreconf -i -f
 
-The next step is to install netcdf-fortran. Download the latest stable version and install the library. A sample script is: ::
- 
+A sample script for installing netcdf-c is here: :ref:`Install_netcdfc`
 
-
+The next step is to install netcdf-fortran. Download the latest stable version and install the library. A sample script can be found in :ref:`Install_netcdff`
 
 NOTE: Do not download the latest stable version of netcdf-c (4.3.2). If you do, you will encounter errors while compiling with enable-parallel option. This is due to a bug which has been fixed in the developers version.
 

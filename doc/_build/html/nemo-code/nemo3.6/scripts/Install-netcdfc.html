@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installing HDF5 &mdash; NEMO_EASTCOAST 1.0.0 documentation</title>
+    <title>&lt;no title&gt; &mdash; NEMO_EASTCOAST 1.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -23,10 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="NEMO_EASTCOAST 1.0.0 documentation" href="../../../index.html" />
-    <link rel="up" title="&lt;no title&gt;" href="index.html" />
-    <link rel="next" title="Compiling NEMOv3.6" href="../compile_nemo3.6.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="index.html" /> 
+    <link rel="top" title="NEMO_EASTCOAST 1.0.0 documentation" href="../../../index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,15 +32,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../compile_nemo3.6.html" title="Compiling NEMOv3.6"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="&lt;no title&gt;"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../../../index.html">NEMO_EASTCOAST 1.0.0 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Compiling NEMOv3.6</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">&lt;no title&gt;</a> &raquo;</li> 
+        <li><a href="../../../index.html">NEMO_EASTCOAST 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -52,31 +41,47 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="installing-hdf5">
-<span id="install-hdf5"></span><h1>Installing HDF5<a class="headerlink" href="#installing-hdf5" title="Permalink to this headline">¶</a></h1>
-<p>This is a sample script for installing HDF5 using intel compilers.</p>
-<div class="highlight-python"><div class="highlight"><pre>#!/bin/bash
-
-export HDF5_Make_Ignore=yes
+  <p>This is a sample script for installing NETCDF4-C using intel compilers.</p>
+<div class="highlight-python"><div class="highlight"><pre>#Configuration options
 export CC=mpicc
 export CXX=mpicxx
 export FC=mpif90
+export F77=mpif90
+export F90=mpif90
+export LD=mpif90
 
-# Configure
+export CFLAGS=&#39;-O2 -fPIC &#39;
+export CXXFLAGS=&quot;-O2 -fPIC &quot;
 
-./configure --prefix=/home/fateme/Opt/opt-install/HDF5/HDF5_ZLIB_MPICH \
---enable-fortran  --enable-parallel --enable-hl --enable-shared  \
-2&gt;&amp;1 | tee fateme-configure_hdf5_zlib.log
+export F90FLAGS=&quot;-O2 -fPIC &quot;
+export FCFLAGS=&quot;-O2 -fPIC &quot;
+export FFLAGS=&quot;-O2 -fPIC &quot;
 
-# Make and install
+export LDFLAGS=&quot;-O2 -fPIC -shared-intel &quot;
+# FLAGS FOR F90  TEST-EXAMPLES
+export FCFLAGS_f90=&quot;-O2 -fPIC &quot;
 
-make 2&gt;&amp;1 | tee fateme-make_hdf5_zlib.log
+#Installation Directories
+export HDF5DIR=home/fateme/Opt/opt-install/HDF5/HDF5_ZLIB_MPICH
+export NETCDFDIR=/home/fateme/Opt/opt-install/NETCDF4/NETCDF4_hdf5_mpich
 
-make check  2&gt;&amp;1 | tee fateme-make_check_hdf5_zlib.log
+export CPPFLAGS=&quot;-I$HDF5DIR/include&quot;
+export LDFLAGS=&quot; -shared-intel -L$HDF5DIR/lib&quot;
 
-make install 2&gt;&amp;1 | tee fateme-install_hdf5_zlib.log
+export LD_LIBRARY_PATH=$HDF5DIR/lib:$LD_LIBRARY_PATH
+
+# Compile, test and install
+
+./configure \
+--prefix=$NETCDFDIR \
+--disable-dap --disable-dap-remote-tests --enable-netcdf4 \
+--enable-shared --enable-parallel-tests  \
+   2&gt;&amp;1 | tee fateme-configure.log
+
+make 2&gt;&amp;1 | tee fateme-make.log
+make check 2&gt;&amp;1 | tee fateme-check.log
+make install 2&gt;&amp;1 | tee fateme-install.log
 </pre></div>
-</div>
 </div>
 
 
@@ -85,15 +90,9 @@ make install 2&gt;&amp;1 | tee fateme-install_hdf5_zlib.log
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">&lt;no title&gt;</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="../compile_nemo3.6.html"
-                        title="next chapter">Compiling NEMOv3.6</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../../_sources/nemo-code/nemo3.6/scripts/compile_hdf5.txt"
+    <li><a href="../../../_sources/nemo-code/nemo3.6/scripts/Install-netcdfc.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -119,15 +118,7 @@ make install 2&gt;&amp;1 | tee fateme-install_hdf5_zlib.log
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="../compile_nemo3.6.html" title="Compiling NEMOv3.6"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="&lt;no title&gt;"
-             >previous</a> |</li>
-        <li><a href="../../../index.html">NEMO_EASTCOAST 1.0.0 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Compiling NEMOv3.6</a> &raquo;</li>
-          <li><a href="index.html" >&lt;no title&gt;</a> &raquo;</li> 
+        <li><a href="../../../index.html">NEMO_EASTCOAST 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

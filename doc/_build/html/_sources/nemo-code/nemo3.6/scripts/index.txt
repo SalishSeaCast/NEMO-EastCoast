@@ -2,5 +2,7 @@
 .. toctree::
    :maxdepth: 2 
    
-   compile_hdf5
-
+   Install_hdf5
+   Install_netcdfc
+   Install_netcdff
+   

@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="NEMO_EASTCOAST 1.0.0 documentation" href="../../index.html" />
     <link rel="up" title="Compiling NEMOv3.6" href="index.html" />
-    <link rel="next" title="Compiling NEMOv3.6" href="compile_nemo3.6.html" />
+    <link rel="next" title="&lt;no title&gt;" href="scripts/index.html" />
     <link rel="prev" title="Compiling NEMOv3.6" href="index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="compile_nemo3.6.html" title="Compiling NEMOv3.6"
+          <a href="scripts/index.html" title="&lt;no title&gt;"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Compiling NEMOv3.6"
@@ -68,29 +68,7 @@
 <h2>Installing HDF5<a class="headerlink" href="#installing-hdf5" title="Permalink to this headline">¶</a></h2>
 <p>Download the latest version of hdf5 from website:
 <a class="reference external" href="http://www.hdfgroup.org/HDF5/release/obtain5.html#obtain">http://www.hdfgroup.org/HDF5/release/obtain5.html#obtain</a></p>
-<p>I downloaded version 1.8.13. Here is a sample script for installing this library:</p>
-<div class="highlight-python"><div class="highlight"><pre>#!/bin/bash
-
-export HDF5_Make_Ignore=yes
-export CC=mpicc
-export CXX=mpicxx
-export FC=mpif90
-
-# Configure
-
-./configure --prefix=/home/fateme/Opt/opt-install/HDF5/HDF5_ZLIB_MPICH \
---enable-fortran  --enable-parallel --enable-hl --enable-shared  \
-2&gt;&amp;1 | tee fateme-configure_hdf5_zlib.log
-
-# Make and install
-
-make 2&gt;&amp;1 | tee fateme-make_hdf5_zlib.log
-
-make check  2&gt;&amp;1 | tee fateme-make_check_hdf5_zlib.log
-
-make install 2&gt;&amp;1 | tee fateme-install_hdf5_zlib.log
-</pre></div>
-</div>
+<p>I downloaded version 1.8.13. A sample script for installing this library can be found in <a class="reference internal" href="scripts/Install_hdf5.html#install-hdf5"><em>Installing HDF5</em></a></p>
 </div>
 <div class="section" id="installing-netcdf4">
 <h2>Installing NETCDF4<a class="headerlink" href="#installing-netcdf4" title="Permalink to this headline">¶</a></h2>
@@ -100,7 +78,8 @@ make install 2&gt;&amp;1 | tee fateme-install_hdf5_zlib.log
 <div class="highlight-python"><div class="highlight"><pre><span class="n">autoreconf</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">f</span>
 </pre></div>
 </div>
-<p>The next step is to install netcdf-fortran. Download the latest stable version and install the library. A sample script is:</p>
+<p>A sample script for installing netcdf-c is here: <em class="xref std std-ref">Install_netcdfc</em></p>
+<p>The next step is to install netcdf-fortran. Download the latest stable version and install the library. A sample script can be found in <a class="reference internal" href="scripts/Install-netcdff.html#install-netcdff"><em>Installing NETCDF-FORTRAN</em></a></p>
 <p>NOTE: Do not download the latest stable version of netcdf-c (4.3.2). If you do, you will encounter errors while compiling with enable-parallel option. This is due to a bug which has been fixed in the developers version.</p>
 </div>
 <div class="section" id="installing-xios">
@@ -134,8 +113,8 @@ make install 2&gt;&amp;1 | tee fateme-install_hdf5_zlib.log
   <p class="topless"><a href="index.html"
                         title="previous chapter">Compiling NEMOv3.6</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="compile_nemo3.6.html"
-                        title="next chapter">Compiling NEMOv3.6</a></p>
+  <p class="topless"><a href="scripts/index.html"
+                        title="next chapter">&lt;no title&gt;</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/nemo-code/nemo3.6/install_libs.txt"
@@ -165,7 +144,7 @@ make install 2&gt;&amp;1 | tee fateme-install_hdf5_zlib.log
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="compile_nemo3.6.html" title="Compiling NEMOv3.6"
+          <a href="scripts/index.html" title="&lt;no title&gt;"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Compiling NEMOv3.6"

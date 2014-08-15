@@ -9,6 +9,7 @@ This is a document on compiling NEMO 3.6. It also includes which versions of req
    :maxdepth: 1
    
    install_libs
-   compile_nemo3.6
    scripts/index
+   compile_nemo3.6
+   
 
