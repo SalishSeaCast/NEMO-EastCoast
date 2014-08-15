@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Document on how to compile NEMO 3.6 &mdash; NEMO_EASTCOAST 1.0.0 documentation</title>
+    <title>Compiling NEMOv3.6 &mdash; NEMO_EASTCOAST 1.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -47,9 +47,17 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="document-on-how-to-compile-nemo-3-6">
-<h1>Document on how to compile NEMO 3.6<a class="headerlink" href="#document-on-how-to-compile-nemo-3-6" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="compiling-nemov3-6">
+<h1>Compiling NEMOv3.6<a class="headerlink" href="#compiling-nemov3-6" title="Permalink to this headline">¶</a></h1>
 <p>This is a document on compiling NEMO 3.6. It also includes which versions of required libraries are appropriate for this task. Example scripts for compiling the libraries are also provided. These scripts are based on Mercator-ocean&#8217;s scripts for compiling NEMOv3.5.</p>
+<div class="section" id="getting-the-code">
+<h2>Getting the code<a class="headerlink" href="#getting-the-code" title="Permalink to this headline">¶</a></h2>
+<p>Download the latest version from the trunk repository:</p>
+<div class="highlight-python"><div class="highlight"><pre>svn --username yourusername co http://forge.ipsl.jussieu.fr/nemo/svn/trunk/NEMOGCM
+</pre></div>
+</div>
+<p>Your username is the same as the one you use for <a class="reference external" href="http://www.nemo-ocean.eu/">http://www.nemo-ocean.eu/</a> website</p>
+</div>
 <div class="section" id="required-libraries">
 <h2>Required libraries<a class="headerlink" href="#required-libraries" title="Permalink to this headline">¶</a></h2>
 <p>To install NEMO v3.6, the following libraries are required:</p>
@@ -88,13 +96,15 @@
 </div>
 <p>Follow instructions given here to install: <a class="reference external" href="http://forge.ipsl.jussieu.fr/ioserver/wiki/documentation">http://forge.ipsl.jussieu.fr/ioserver/wiki/documentation</a></p>
 </div>
-<div class="section" id="installing-nemo3-6">
-<h3>Installing NEMO3.6<a class="headerlink" href="#installing-nemo3-6" title="Permalink to this headline">¶</a></h3>
-<p>Download the latest version from the trunk repository:</p>
-<div class="highlight-python"><div class="highlight"><pre>svn --username yourusername co http://forge.ipsl.jussieu.fr/nemo/svn/trunk/NEMOGCM
-</pre></div>
-</div>
-<p>Your username is the same as the one you use for <a class="reference external" href="http://www.nemo-ocean.eu/">http://www.nemo-ocean.eu/</a> website</p>
+<div class="section" id="id1">
+<h3>Compiling NEMOv3.6<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>To compile NEMOv3.6 you first need to create an architecture file compatible with your machine which also indicates the path to NETCDF4 and XIOS libraries. You can find example architecture files in NEMOGCM/ARCH folder.</p>
+<dl class="docutils">
+<dt>After creating the architecture file, compile and create executable using an existing configuration. For example to use GYRE configuration and create a configuration called MY_GYRE: ::</dt>
+<dd>cd NEMOGCM/CONFIG
+./makenemo –m your_architecture –r GYRE -n MY_GYRE</dd>
+</dl>
+<p>Please refer to <a class="reference external" href="http://www.nemo-ocean.eu/Using-NEMO/User-Guides/Basics/NEMO-Quick-Start-Guide">http://www.nemo-ocean.eu/Using-NEMO/User-Guides/Basics/NEMO-Quick-Start-Guide</a> for further details</p>
 </div>
 </div>
 </div>
@@ -107,13 +117,14 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Document on how to compile NEMO 3.6</a><ul>
+<li><a class="reference internal" href="#">Compiling NEMOv3.6</a><ul>
+<li><a class="reference internal" href="#getting-the-code">Getting the code</a></li>
 <li><a class="reference internal" href="#required-libraries">Required libraries</a></li>
 <li><a class="reference internal" href="#installing-required-libraries">Installing Required libraries</a><ul>
 <li><a class="reference internal" href="#installing-hdf5">Installing HDF5</a></li>
 <li><a class="reference internal" href="#installing-netcdf4">Installing NETCDF4</a></li>
 <li><a class="reference internal" href="#installing-xios">Installing XIOS</a></li>
-<li><a class="reference internal" href="#installing-nemo3-6">Installing NEMO3.6</a></li>
+<li><a class="reference internal" href="#id1">Compiling NEMOv3.6</a></li>
 </ul>
 </li>
 </ul>

@@ -1,8 +1,17 @@
 ************************************
-Document on how to compile NEMO 3.6
+Compiling NEMOv3.6
 ************************************
 
 This is a document on compiling NEMO 3.6. It also includes which versions of required libraries are appropriate for this task. Example scripts for compiling the libraries are also provided. These scripts are based on Mercator-ocean's scripts for compiling NEMOv3.5.
+
+Getting the code
+=================
+
+Download the latest version from the trunk repository: ::
+
+    svn --username yourusername co http://forge.ipsl.jussieu.fr/nemo/svn/trunk/NEMOGCM
+
+Your username is the same as the one you use for http://www.nemo-ocean.eu/ website
 
 
 Required libraries
@@ -53,14 +62,16 @@ Obtain the latest revision of XIOS: ::
 
 Follow instructions given here to install: http://forge.ipsl.jussieu.fr/ioserver/wiki/documentation
 
-Installing NEMO3.6
+Compiling NEMOv3.6
 ------------------
+To compile NEMOv3.6 you first need to create an architecture file compatible with your machine which also indicates the path to NETCDF4 and XIOS libraries. You can find example architecture files in NEMOGCM/ARCH folder. 
 
-Download the latest version from the trunk repository: ::
+After creating the architecture file, compile and create executable using an existing configuration. For example to use GYRE configuration and create a configuration called MY_GYRE: ::
+  cd NEMOGCM/CONFIG
+  ./makenemo –m your_architecture –r GYRE -n MY_GYRE
 
-    svn --username yourusername co http://forge.ipsl.jussieu.fr/nemo/svn/trunk/NEMOGCM
+Please refer to http://www.nemo-ocean.eu/Using-NEMO/User-Guides/Basics/NEMO-Quick-Start-Guide for further details
 
-Your username is the same as the one you use for http://www.nemo-ocean.eu/ website
 
 
 
