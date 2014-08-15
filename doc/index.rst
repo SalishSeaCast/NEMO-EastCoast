@@ -10,18 +10,12 @@ This is a collection of documentation on ocean modeling using NEMO.
 
 
 
-Contents:
+Contents
+=========
 
 .. toctree::
    :maxdepth: 2
 
    nemo-code/nemo3.6/index
  
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
