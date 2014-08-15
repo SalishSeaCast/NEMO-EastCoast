@@ -8,7 +8,6 @@ East Coast MEOPAR project documentation
 ********************************************
 This is a collection of documentation on ocean modeling using NEMO.
 
-
 Contents
 =========
 
