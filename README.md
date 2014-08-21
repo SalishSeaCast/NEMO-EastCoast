@@ -1,5 +1,4 @@
-NEMOPREPARATION_test
+NEMO_EastCoast
 
-This is a collection of scripts used for creating NEMO input files
-These include MATLAB and shell scripts.
+This is a collection of files for pre-processing, running and post-processing of numerical simulations with NEMO for MEOPAR project. 
 
