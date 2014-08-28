@@ -29,7 +29,7 @@
 %                       f_writenetcdf_tides
 %                       f_opa_angle
 %                       floodnan3_opa
-%			floodnan4_opa
+%			            floodnan4_opa
 %
 % NOTES:
 %
@@ -45,34 +45,24 @@ display('***** CALL TO : interp_tides_Webtide.m *****')
 %##############################################################
 %################## BEGIN USER MODIFICATIONS ##################
 %- Specify the requested tidal components:
-%list_compo={'K1','K2','M2','N2','O1','P1','Q1','S2'};
-%list_compo={'K1','M2','O1'};
-list_compo={'M2'};
-% - Specify input directory for NEMO coordinates and Bathymetry
-%- Coordinate file must be in the execution directory...
-pathcoord='/users/staff/jppaquin/scratch/WCSD2_PREP'; 
-coordfile='SubDom_coordinates_seagrid_WestCoast.nc';
-%pathbathy ='/users/staff/jppaquin/scratch/WC3_PREP/2_bathy';
-%pathbathy ='/users/staff/jppaquin/scratch/WC3_PREP/3_mesh_mask';
-%filebathy='bathy_meter.nc';
-%- New bathymetry with j>545 = 0
-pathbathy ='/users/staff/jppaquin/scratch/WCSD2_PREP';
-% filebathy='bathy_meter_NOBC.nc';
-% check diff with modified bathy from Keith...
-% filebathy='bathymetry_seagrid_WestCoast_DEMmax10m_min4m.nc';
-filebathy = 'SubDom_bathy_meter_NOBCchancomp.nc';
 
-% New Experiment with subdomain
-%pathcoord='/users/staff/jppaquin/scratch/WCSD_PREP'; 
-%coordfile='SubDom_coordinates_seagrid_WestCoast.nc';
-%
-%pathbathy='/users/staff/jppaquin/scratch/WCSD_PREP';
-%filebathy='SubDom_bathy_meter_NOBCchancomp.nc';
+list_compo={'M2' , 'S2', 'N2' };
+
+% - Specify input directory for NEMO coordinates and Bathymetry
+% - Coordinate file must be in the execution directory...
+pathcoord='/media/Data/NEMO/FC/NEMO_input'; 
+coordfile='Capesable_coordinates_ORCA05km.nc';
+
+%- New bathymetry with j>545 = 0
+pathbathy ='/media/Data/NEMO/FC/NEMO_input';
+filebathy = 'Capesable_bathymetry_ORCA05km.nc';
 
 
 % - Specify input directory for WebTide
-inputdata='Webtide_NePac4';
-pathWeb ='/users/staff/jppaquin/scratch/DATA/WebTide/ne_pac4';
+inputdata='Webtide_sshelf';
+pathWeb ='/media/Data/NEMO/Data/WebTide/WebTide-install/data/sshelf';
+fileWebnode ='sshelf_ll.nod';
+fileWebBathy='sshelf.bat';
 
 
 % - Input parameters
@@ -81,13 +71,8 @@ landextrapolation='yes'; %- Option if data need to be extrapolated on land
 cdfversion='3.6.2'; %- Supported netcdf version: v3.6.2
                     %  Older versions untested
 
-% addpath /users/staff/jppaquin/matlab/mexcdf/mexnc
-% addpath /users/staff/jppaquin/matlab/mexnc
-% addpath /users/staff/jppaquin/matlab/netcdf_toolbox/netcdf
-% addpath /users/staff/jppaquin/matlab/netcdf_toolbox/netcdf/nctype
-% addpath /users/staff/jppaquin/matlab/netcdf_toolbox/netcdf/ncutility
-addpath('/users/staff/jppaquin/NEMO_PREPARATION/0_common');
-addpath('/users/staff/jppaquin/NEMO_PREPARATION/5_tide');
+addpath('/media/Data/NEMO/JPP/0_common');
+addpath('/media/Data/NEMO/JPP/5_tide');
 %##############################################################
 
 
@@ -112,11 +97,6 @@ if strcmp(cdfversion,'3.6.2')
   tmp_data=f_open_netcdf(pathbathy,filebathy,'Bathymetry');
   bathy=permute(tmp_data,[2,1]); 
   clear tmp_data;
-else
-  display('**** OLDER NETCDF VERSION UNTESTED ****')  
-  nc=netcdf('/home/zhaili/ESRF/NEMO/Nesting_tools/bin/1_bathy_OCRA12_GB.nc','nowrite');
-  bathy=nc{'Bathymetry'}(:); 
-  close(nc);
 end
 mask=bathy;
 mask(mask>1)=1;
@@ -146,16 +126,6 @@ if strcmp(cdfversion,'3.6.2')
                   'gphit',gphit,'gphiu',gphiu,'gphiv',gphiv,'gphif',gphif  );
   clear Rglamt Rglamu Rglamv Rglamf Rgphit Rgphiu Rgphiv Rgphif glamt glamf gphit gphif
 
-else
-  display('**** OLDER NETCDF VERSION UNTESTED ****')  
-  nc=netcdf('/home/zhaili/ESRF/NEMO/Nesting_tools/bin/1_bathy_OCRA12_GB.nc','nowrite');
-  Alont=nc{'glamt'}(:);
-  Alatt=nc{'gphit'}(:);
-  Alonu=nc{'glamu'}(:);
-  Alatu=nc{'gphiu'}(:);
-  Alonv=nc{'glamv'}(:);
-  Alatv=nc{'gphiv'}(:);
-  close(nc);
 end
 
 
@@ -183,7 +153,7 @@ else
   time_T_end_floodM =clock;                                                %jpp
 end
 
-
+mask2(isnan(mask2))=0; %FCH: mask doesn't work for me ?!
 
 % ------------------------------------------------------------------------
 % [3] Loop over all required tidal components
@@ -193,7 +163,7 @@ display('3- INTERPOLATE TIDAL COMPONENT(S)')
 % - [3-1] Load latitudes/ longitudes and bathymetry
 display('  3-1 LOAD WEBTIDE LAT/LON & BATHY')
 % - Read WebTide Latitudes and Longitudes
-latlonweb  =([pathWeb '/ne_pac4_ll.nod']);           % Webtide Lat-Lon
+latlonweb  =([pathWeb ,'/', fileWebnode]);           % Webtide Lat-Lon
 HEADERLINES=0; DELIMITER=' ';
 tmpdata = importdata(latlonweb, DELIMITER, HEADERLINES);
 lonin=tmpdata(:,2)  ; % longitude
@@ -202,7 +172,7 @@ ii=find(lonin>0)  ;lonin(ii) = lonin(ii)-360 ; % Remove lines where long
 clear tmpdata                                  % are superior to 0
 
 % - Read Webtide Bathymetry
-bathyweb   =([pathWeb '/ne_pac4.bat']);              % WebTide bathymetry
+bathyweb   =([pathWeb ,'/',fileWebBathy]);              % WebTide bathymetry
 HEADERLINES=0; DELIMITER=' ';
 tmpdata = importdata(bathyweb, DELIMITER, HEADERLINES);
 bathyin=tmpdata(:,2)  ; % bathymetry   
