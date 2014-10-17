@@ -1,4 +1,4 @@
-% NAME: gen_obc.m
+% NAME: gen_obc_2D.m
 %
 % AUTHOR: J.-P. Paquin 
 %
@@ -17,6 +17,7 @@
 %                   This is useful for regional modeling where you want to
 %                   give 2D B.C with a higher frequency compared to 3D
 %                   Therefore, I've separated the creation of these B.C.s
+%                   This script is for 2D boudary
 %            Sep14- FCH: Generalized to read any nemo input file
 %                            
 %
@@ -94,7 +95,7 @@ config_name='CPSBL';
 % - SOURCE grid file names and related variables
 inputdata='ANNA';
 dirin=('/media/Data/NEMO/Anna/Anna_output/SCOTIAN_RUN2010_NOTIDES/');
-Tfile='SCOTIAN_2D_2010_Bcl_notides_cor_ANNA_CPSBL_Extracted_2D.nc';
+Tfile='SCOTIAN_2D_2010_Bcl_notides_Extracted_CapeSable.nc';
 Ufile=Tfile;
 Vfile=Tfile;
 SSHvar='sossheig';
@@ -122,15 +123,21 @@ concepts_version='3.6.0'; % Switch for east and north boundary inversion
                           % Version 1.1.0           : inversion required
                           % Version 2.0.0 and above : not required 
 
-list_obc={'east','south','north','west'}; % - List of open boundaries in the domain
-                     
+% FCH: OBC according to nambdy_index in namelist
+% Note: the order is important, e.g obc.name(1),obc.nbdyind(1),... should
+% correspond to first boundary.
+obc.name={'east','west','north','south'}; % - List of open boundaries in the domain
+obc.nbdyind=[384 2 249 2]; %-index of obc according to namelist
+obc.nbdybeg=[2, 2 , 2 ,2]; %- beg
+obc.nbdyend=[250,250,135,385]; %end
+            
 nbdeg=0.1; %- number of degrees around the DESTINATION grid required for 
          %  data extraction from the SOURCE grid to avoid (as much as
          %  possible) memory problems
 
 nbptsbound=1; %- number of points in the boundary 
               %- FCH NOTE: in NEMO3.6 if using flather boundary,
-              % only one point in boundary is required
+              % only one point in boundary is required for 2D BC
               
 m_proj('mercator')
 %##############################################################
@@ -262,9 +269,13 @@ time_units=ncreadatt([dirin,'/',Tfile],'time_counter','units');
 
 %% -------------------------------------------------------------------------
 % MAIN LOOP OVER THE USER DEFINED OPEN BOUNDARIES
-global obc_name ;
-for myobc = list_obc
-  obc_name = myobc{1}; myobc;
+%global obcname nbdyind nbdybeg nbdyend ;
+nobc=length(obc.name);
+for iobc=1:nobc
+  obcname = obc.name{iobc};
+  nbdyind=obc.nbdyind(iobc);
+  nbdybeg=obc.nbdybeg(iobc);
+  nbdyend=obc.nbdyend(iobc);
 
 % -------------------------------------------------------------------------
 % [2] OPEN BOUNDARY LOCATION
@@ -279,7 +290,7 @@ for myobc = list_obc
 display(' 2 - DEFINE OPEN BOUNDARY')
 [RdomY,RdomX]=size(coordREG.glamt);
  
-[corners]=f_define_corners(RdomY,RdomX,obc_name,nbptsbound);
+[corners] = f_define_corners_NEMO36(nbdyind,nbdybeg,nbdyend,obcname,nbptsbound);
 
 %- [2-2] Find minimum/maximum latitudes and longitudes of the open water
 %        section on DESTINATION grid (based on the location of the 4
