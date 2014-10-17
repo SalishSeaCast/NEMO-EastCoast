@@ -34,8 +34,9 @@ m_proj=('mercator');
 % --- Land extrapolation of SOURCE data (floodnan3_opa)
 mod_mask=zeros(NY,NX);
 tmpvar=zeros(NZ,ny,nx,NT);
+fprintf('%s: horiz interp to DESTINATION and flooding: ');
 for zi=1:NZ
-  fprintf('%s: horiz interp to DESTINATION and flooding: zi=%d ...\n',mfilename,zi);
+  %fprintf('%s: horiz interp to DESTINATION and flooding: zi=%d ...\n',mfilename,zi);
   for ti=1:NT    
     datain = squeeze(varin(zi,:,:,ti)) ;
     %figure ; pcolor(datain) ; shading flat ; colorbar
@@ -43,8 +44,6 @@ for zi=1:NZ
       tmpvar(zi,:,:,ti)=NaN;
     else
       tmp=floodnan3_opa(datain,mod_mask,1);
-%      tmp=datain;
-size(tmp)
       tmp2=griddata(OXU,OYU,tmp,AXU,AYU);
       tmp3=1e20*ones(size(tmp)); tmp3=tmp2;
       tmpvar(zi,:,:,ti) = tmp3;    
@@ -53,7 +52,7 @@ size(tmp)
   end
 end
 
-
+fprintf('%s: vertical interpolation ');
 % Now interpolate vertically from SOURCE levels to DESTINATION levels
 if ( NZ>1 && nz>1)
   tmp_moddpth=zeros(nz,1);
