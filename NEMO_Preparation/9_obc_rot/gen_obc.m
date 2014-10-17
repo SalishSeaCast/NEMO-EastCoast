@@ -1,1 +1,0 @@
-/media/Data/NEMO/FC/NEMO_PREPARATION/9_obc_rot/gen_obc.m
